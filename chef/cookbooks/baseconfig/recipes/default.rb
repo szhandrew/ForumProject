@@ -31,6 +31,10 @@ execute 'install_channels' do
 	command 'pip3 install channels'
 end
 
+execute 'install_redis' do
+	command 'pip3 install channels_redis'
+end
+
 execute 'add_docker_gpg_key' do
 	command 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -'
 end
@@ -50,7 +54,11 @@ execute 'django_db_migrate' do
 	command 'python3 manage.py migrate'
 end
 
-# execute 'start_server' do
-# 	cwd '/home/vagrant/project/site/mysite/'
+execute 'start_redis_server' do
+	command 'docker run -p 6379:6379 -d redis:2.8'
+end
+
+# execute 'start_django_server' do
+# 	cwd '/home/vagrant/project/'
 # 	command 'python3 manage.py runserver 0:8000 &'
 # end
