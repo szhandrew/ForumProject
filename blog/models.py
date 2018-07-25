@@ -51,11 +51,11 @@ class Post(models.Model):
     views = models.PositiveIntegerField(default=0)
 
 
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
     tags = models.ManyToManyField(Tag, blank=True)
 
 
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title
