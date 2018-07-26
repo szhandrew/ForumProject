@@ -265,6 +265,9 @@ class TagView(ListView):
     def get_queryset(self):
         tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
         return super(TagView, self).get_queryset().filter(tags=tag)
+    
+def aboutUs(request):
+    return render(request, 'blog/about.html')
 
 
 """
