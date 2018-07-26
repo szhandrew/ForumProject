@@ -3,12 +3,17 @@ import markdown
 from markdown.extensions.toc import TocExtension
 
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django.utils.text import slugify
+from django.core.mail import EmailMessage
+from django.template.loader import get_template
+from django.contrib import messages
 
 from comments.forms import CommentForm
 from .models import Post, Category, Tag
+
+from .forms import ContactForm
 
 """
 def index(request):
@@ -268,6 +273,51 @@ class TagView(ListView):
     
 def aboutUs(request):
     return render(request, 'blog/about.html')
+
+
+def contact(request):
+    form_class = ContactForm
+
+
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+            contact_name = request.POST.get(
+                'contact_name'
+            , '')
+            contact_email = request.POST.get(
+                'contact_email'
+            , '')
+            form_content = request.POST.get('content', '')
+
+            # Add contact information in email
+            template = get_template('blog/contact_template.txt')
+            context = {
+                'contact_name': contact_name,
+                'contact_email': contact_email,
+                'form_content': form_content,
+            }
+            content = template.render(context)
+
+            email = EmailMessage(
+                "New contact form submission",
+                content,
+                "Your website" +'',
+                ['youremail@gmail.com'],
+                headers = {'Reply-To': contact_email }
+            )
+            email.send()
+            
+            messages.success(request, 'Your message has been sent to us!') 
+            
+            return redirect('blog:contact')
+        else:
+            messages.warning(request, 'Your message is not valid. Please try again.')
+            
+    return render(request, 'blog/contact.html', {
+        'form': form_class,
+    })
 
 
 """
