@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import Website
 
 def show(request):
-# 这里直接通过QuerySet API获取所有的object，默认返回类型为tuple（元组）
+# With QuerySet API to get all objects，return tuple
     queryset = Website.objects.all()
     # 传入三个渲染参数
     return render(request, 'news/nws.html', {'QuerySet': queryset})

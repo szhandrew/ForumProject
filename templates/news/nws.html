@@ -4,22 +4,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--以下三行是引用bootstrap互联网上的源文件-->
+    <!--import bootstrap-->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <title>Spider Baidu</title>
+    <title>Latest CS News</title>
 
 </head>
 <body>
     <div class="container">
-        <h2>Python百科词条相关数据抓取</h2>
+        <h2>Latest Computer science and technology NEWS</h2><br/>
             <ul class="nav nav-pills nav-stacked">
                 {% for i in QuerySet %}
-                <!-- 按钮触发模态框 -->
+                <!-- trigle the model box -->
                     <li role="presentation" data-toggle="modal" data-target="#myModal{{ i.id }}"><a href="#">{{ i.name }}</a></li>
-                <!-- 模态框（Modal） -->
+                <!--（Modal） -->
                 <div class="modal fade" id="myModal{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -35,8 +35,8 @@
                                 {{ i.text }}
                             </div>
                             <div class="modal-footer">
-                                <p>参考链接: <a href="{{ i.url }}">{{ i.url }}</a></p>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                <p>Read More: <a href="{{ i.url }}">{{ i.url }}</a></p>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE
                                 </button>
                             </div>
                         </div><!-- /.modal-content -->

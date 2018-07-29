@@ -1,43 +1,52 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-# import data into mysql(sqlite3), must have these four lines defination:
 import os
-# 我所创建的project名称为learn_spider;里面的app名称为website
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "learn_spider.settings")
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blogproject.settings")
 import django
 django.setup()
 
-
-# urllib2 package: open resource by URL; re package: use regular expression to filter the objects
 import urllib.request, re
+from urllib.request import Request, urlopen
 import urllib.parse
-# BeautifulSoup: abstract data clearly from html/xml files
 from bs4 import BeautifulSoup
-# import tables from models.py
+
+
 from news.models import Website
 
-# urlopen()方法需要加read()才可视源代码，其中decode("utf-8")表示以utf-8编码解析原网页，这个编码格式是根据网页源代码中<head>标签下的<meta charset="utf-8">来决定的。
-html_python = urllib.request.urlopen('https://baike.baidu.com/item/Python').read().decode("utf-8")
-soup_python = BeautifulSoup(html_python, "html.parser")
-# print soup
-#这里用到了正则表达式进行筛选
-item_list = soup_python.find_all('a', href=re.compile("item"))
 
-for each in item_list:
-    print (each.string)
-    # use quote to replace special characters in string(escape encode method)
-    urls = "https://baike.baidu.com/item/" + urllib.parse.quote(each.string.encode("utf-8"))
-    print (urls)
-    html = urllib.request.urlopen(urls).read().decode("utf-8")
-    soup = BeautifulSoup(html, "html.parser")
-    if soup.find('div', 'lemma-summary') == None:
-        text = "None"
-    else:
-        text = soup.find('div', 'lemma-summary').get_text()
-    print (text)
-    Website.objects.get_or_create(name=each.string, url=urls, text=text)
+html_news = urllib.request.urlopen('http://news.mit.edu/topic/computers').read().decode("utf-8")
+soup_news = BeautifulSoup(html_news, "html.parser")
+
+title_List = soup_news.find('ul', 'view-news-items').find_all(class_=re.compile("title"))
+link_List = soup_news.find('ul', 'view-news-items').find_all('a')
+Date_List = soup_news.find('ul', 'view-news-items').find_all(class_="date")
+Summ_List = soup_news.find('ul', 'view-news-items').find_all(class_="dek")
+
+## add date at the end of title
+title_with_Time = []
+
+## fix the full URL
+Full_Link = []
+for i in range(0, len(link_List)):
+    if(i%2 == 0):
+        Full_Link.append("http://news.mit.edu" + link_List[i].get('href'))
+
+for i in range(0, len(title_List)):
+    title_with_Time.append(title_List[i].string + "----" + Date_List[i].string)
 
 
-text_python = soup_python.find('div', 'lemma-summary').text
+## save to DB
+for i in range(0, len(title_with_Time)):
+    Website.objects.get_or_create(name=title_with_Time[i], url=Full_Link[i], text=Summ_List[i].string)
 
-Website.objects.get_or_create(name="Python", url="https://baike.baidu.com/item/Python", text=text_python)
+
+# print (title_List[0].string)
+# print (Full_Link[0])
+# print (Date_List[0].string)
+# print (Summ_List[0].string)
+# print (title_with_Time[0])
+
+
+# print (len(title_List))
+# print (len(Full_Link))
+# print (len(Date_List))
+# print (len(Summ_List))
