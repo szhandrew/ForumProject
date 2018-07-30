@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +15,9 @@
 
 </head>
 <body>
+    {% block main %}
     <div class="container">
-        <h2>Latest Computer science and technology NEWS</h2><br/>
+        <h2>Latest Computer Science and Technology NEWS</h2><br/>
             <ul class="nav nav-pills nav-stacked">
                 {% for i in QuerySet %}
                 <!-- trigle the model box -->
@@ -45,5 +48,6 @@
                 {% endfor %}
             </ul>
     </div>
+    {% endblock main %}
 </body>
 </html>
