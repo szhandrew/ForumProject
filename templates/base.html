@@ -48,9 +48,10 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
+
                             <li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="Blog">Blog</a></li>
                             <li class="cl-effect-11"><a href="http://127.0.0.1:8000/news/nws.html" data-hover="Latest News">Latest News</a></li>
-                            <li class="cl-effect-11"><a href="/chat/" data-hover="Chat">Chat</a></li>
+                            <li class="cl-effect-11"><a href="/chat/" data-hover="Chat" target="_blank">Chat</a></li>
                             <li class="cl-effect-11"><a href="{% url 'blog:about' %}" data-hover="About Us">About Us</a></li>
                             <li class="cl-effect-11"><a href="{% url 'blog:contact' %}" data-hover="Contact Us">Contact Us</a></li>
                         </ul>
@@ -154,7 +155,7 @@
         <ul>
             <li><a href="{% url 'blog:index' %}">Blog</a></li>
             <li><a href="http://127.0.0.1:8000/news/nws.html"></a>Latest News</li>
-            <li><a href="/chat/">Chat</a></li>
+            <li><a href="/chat/" target="_blank">Chat</a></li>
             <li><a href="{% url 'blog:about' %}">About Us</a></li>
             <li><a href="{% url 'blog:contact' %}">Contact Us</a></li>
         </ul>
