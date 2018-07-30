@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Singup</title>
+    <title>Sign up Page</title>
     <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
     <style>
         .errorlist {
@@ -17,8 +17,8 @@
     <div class="container">
         <div class="flex-center">
             <div class="unit-1-2 unit-1-on-mobile">
-                <h1><a href="{% url 'index' %}">Django Auth Example</a></h1>
-                <h3>Singup</h3>
+                <h1><a href="{% url 'index' %}">CS TecLog</a></h1>
+                <h3>Sign up Page</h3>
                 <form class="form" action="{% url 'users:register' %}" method="post">
                     {% csrf_token %}
                     {% for field in form %}
@@ -29,11 +29,11 @@
                             <p class="help text-small text-muted">{{ field.help_text|safe }}</p>
                         {% endif %}
                     {% endfor %}
-                    <button type="submit" class="btn btn-primary btn-block">Singup</button>
+                    <button type="submit" class="btn btn-primary btn-block">Sign up</button>
                     <input type="hidden" name="next" value="{{ next }}"/>
                 </form>
                 <div class="flex-center top-gap text-small">
-                    <a href="{% url 'login' %}">Account exits</a>
+                    <a href="{% url 'login' %}">Have account, log me in</a>
                 </div>
             </div>
         </div>
