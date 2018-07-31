@@ -1,12 +1,14 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8"/>
 	<title>Chat Room</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'chat/css/room_style.css' %}" />
 </head>
 <body>
 	<h1>Chat Room</h1>
-	<textarea id="chat-log" cols="101" rows="20"></textarea><br/>
+	<textarea readonly id="chat-log" cols="101" rows="20"></textarea><br/>
 	<input id="chat-message-input" type="text" size="100"/><br/>
 	<input id="chat-message-submit" type="button" value="Send"/>
 </body>

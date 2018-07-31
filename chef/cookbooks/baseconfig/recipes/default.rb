@@ -9,12 +9,13 @@ end
 # Base configuration recipe in Chef.
 package "wget"
 package "ntp"
+package "curl"
 package "python3-pip"
-package "python3-dev" 
+package "python3-dev"
+package "nodejs"
 # package "postgresql-server-dev-all"
 # package "libpython-dev"
 # package "libpq-dev"
-package "curl"
 
 cookbook_file "ntp.conf" do
 	path "/etc/ntp.conf"
@@ -24,7 +25,17 @@ execute 'ntp_restart' do
 end
 
 execute 'install_django' do
-	command 'pip3 install Django==1.11 Markdown==2.6.8 Pygments==2.2.0 pytz==2016.10 django-haystack==2.6.1 jieba==0.38 Whoosh==2.7.4'
+	command 'pip3 install Django==1.11'
+end
+
+execute 'install_dependencies' do
+	command 'pip3 install Markdown==2.6.8 \
+	Pygments==2.2.0 \
+	pytz==2016.10 \
+	django-haystack==2.6.1 \
+	jieba==0.38 \
+	Whoosh==2.7.4 \
+	beautifulsoup4'
 end
 
 execute 'install_channels' do
