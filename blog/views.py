@@ -58,7 +58,7 @@ class IndexView(ListView):
 
 
         context.update(pagination_data)
-
+        context.update({'user_name': str(self.request.user).capitalize()})
 
         return context
 
@@ -331,3 +331,8 @@ def search(request):
     return render(request, 'blog/index.html', {'error_msg': error_msg,
                                                'post_list': post_list})
 """
+
+
+def dajibaofans(request):
+    print('dajibao')
+    return render(request, 'profile/profile.html')

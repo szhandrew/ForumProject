@@ -24,4 +24,5 @@ def register(request):
 
 
 def index(request):
-    return render(request, 'index.html')
+    return redirect('blog:index')
+    # return render(request, 'index.html')

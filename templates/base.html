@@ -33,12 +33,12 @@
 <div class="container">
     <header id="site-header">
         <div class="row">
-            <div class="col-md-4 col-sm-5 col-xs-8">
+            <div class="col-md-3 col-sm-5 col-xs-8">
                 <div class="logo">
                     <h1><a href="{% url 'blog:index' %}"><b>CS TecLog</a></h1>
                 </div>
             </div><!-- col-md-4 -->
-            <div class="col-md-8 col-sm-7 col-xs-4">
+            <div class="col-md-9 col-sm-7 col-xs-4">
                 <nav class="main-nav" role="navigation">
                     <div class="navbar-header">
                         <button type="button" id="trigger-overlay" class="navbar-toggle">
@@ -49,11 +49,12 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
 
-                            <li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="Blog">Blog</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="Blog">{%Blog</a></li>
                             <li class="cl-effect-11"><a href="/news/nws.html" data-hover="Latest News">Latest News</a></li>
                             <li class="cl-effect-11"><a href="/chat/" data-hover="Chat" target="_blank">Chat</a></li>
-                            <li class="cl-effect-11"><a href="{% url 'blog:about' %}" data-hover="About Us">About Us</a></li>
-                            <li class="cl-effect-11"><a href="{% url 'blog:contact' %}" data-hover="Contact Us">Contact Us</a></li>
+                            <li class="cl-effect-11"><a href="/profile/" data-hover="{{request.user.username}}" target="_blank">{{request.user.username}}</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog:about' %}" data-hover="About Us">About</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog:contact' %}" data-hover="Contact Us">Contact</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </nav>
@@ -156,6 +157,7 @@
             <li><a href="{% url 'blog:index' %}">Blog</a></li>
             <li><a href="/news/nws.html"></a>Latest News</li>
             <li><a href="/chat/" target="_blank">Chat</a></li>
+            <li><a href="/profile/" target="_blank">{{request.user.username}}</a></li>
             <li><a href="{% url 'blog:about' %}">About Us</a></li>
             <li><a href="{% url 'blog:contact' %}">Contact Us</a></li>
         </ul>
