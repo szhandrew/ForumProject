@@ -24,5 +24,7 @@ def register(request):
 
 
 def index(request):
-    return redirect('blog:index')
-    # return render(request, 'index.html')
+    if request.user.is_authenticated:
+        return redirect('blog:index')
+    else:
+        return render(request, 'index.html')

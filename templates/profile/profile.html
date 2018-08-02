@@ -2,6 +2,7 @@
 
 {% block main %}
     <div style="margin: 20px">
-    <p>wo shi da ji bao</p>
+    <p>First Name: {{request.user.first_name}}</p>
+    <p>Last Name: {{request.user.last_name}}</p>
     </div>
 {% endblock main %}

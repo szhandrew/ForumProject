@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^users/', include('users.urls')),
     url(r'^users/', include('django.contrib.auth.urls')),
     url(r'^$', views.index, name='index'),
+    url(r'^logout/', blog_view.logout_view, name='logout'),
 
     url(r'^news/', include('news.urls')),
 ]
