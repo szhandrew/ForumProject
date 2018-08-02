@@ -1,3 +1,5 @@
+import datetime
+
 import markdown
 
 from markdown.extensions.toc import TocExtension
@@ -34,6 +36,24 @@ def index(request):
     post_list = Post.objects.all()
     return render(request, 'blog/index.html', context={'post_list': post_list})
 
+def my_posts(request):
+    post_list = Post.objects.filter(author=request.user)
+    return render(request, 'blog/index.html', context={'post_list': post_list})
+
+def add_post(request):
+    if request.method != "POST":
+        return render(request, 'blog/add_post.html')
+
+    title = request.POST.get('title')
+    content = request.POST.get('content')
+    post = Post.objects.create(title=title,
+                               body=content,
+                               author=request.user,
+                               created_time=datetime.datetime.now(),
+                               modified_time=datetime.datetime.now())
+    post.save()
+    return redirect('blog:index')
+
 
 class IndexView(ListView):
     model = Post
@@ -42,9 +62,6 @@ class IndexView(ListView):
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
-        """
-            """
-
         context = super(IndexView, self).get_context_data(**kwargs)
 
         paginator = context.get('paginator')
@@ -54,7 +71,6 @@ class IndexView(ListView):
         pagination_data = self.pagination_data(paginator, page, is_paginated)
 
         context.update(pagination_data)
-        context.update({'user_name': str(self.request.user).capitalize()})
 
         return context
 
