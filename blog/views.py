@@ -1,3 +1,5 @@
+import datetime
+
 import markdown
 
 from markdown.extensions.toc import TocExtension
@@ -34,6 +36,24 @@ def index(request):
     post_list = Post.objects.all()
     return render(request, 'blog/index.html', context={'post_list': post_list})
 
+def my_posts(request):
+    post_list = Post.objects.filter(author=request.user)
+    return render(request, 'blog/index.html', context={'post_list': post_list})
+
+def add_post(request):
+    if request.method != "POST":
+        return render(request, 'blog/add_post.html')
+
+    title = request.POST.get('title')
+    content = request.POST.get('content')
+    post = Post.objects.create(title=title,
+                               body=content,
+                               author=request.user,
+                               created_time=datetime.datetime.now(),
+                               modified_time=datetime.datetime.now())
+    post.save()
+    return redirect('blog:index')
+
 
 class IndexView(ListView):
     model = Post
@@ -42,55 +62,37 @@ class IndexView(ListView):
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
-        """
-            """
-
-
         context = super(IndexView, self).get_context_data(**kwargs)
-
 
         paginator = context.get('paginator')
         page = context.get('page_obj')
         is_paginated = context.get('is_paginated')
 
-
         pagination_data = self.pagination_data(paginator, page, is_paginated)
 
-
         context.update(pagination_data)
-
 
         return context
 
     def pagination_data(self, paginator, page, is_paginated):
         if not is_paginated:
-
             return {}
-
 
         left = []
 
-
         right = []
-
 
         left_has_more = False
 
-
         right_has_more = False
-
 
         first = False
 
-
         last = False
-
 
         page_number = page.number
 
-
         total_pages = paginator.num_pages
-
 
         page_range = paginator.page_range
 
@@ -98,10 +100,8 @@ class IndexView(ListView):
 
             right = page_range[page_number:page_number + 2]
 
-
             if right[-1] < total_pages - 1:
                 right_has_more = True
-
 
             if right[-1] < total_pages:
                 last = True
@@ -110,10 +110,8 @@ class IndexView(ListView):
 
             left = page_range[(page_number - 3) if (page_number - 3) > 0 else 0:page_number - 1]
 
-
             if left[0] > 2:
                 left_has_more = True
-
 
             if left[0] > 1:
                 first = True
@@ -122,12 +120,10 @@ class IndexView(ListView):
             left = page_range[(page_number - 3) if (page_number - 3) > 0 else 0:page_number - 1]
             right = page_range[page_number:page_number + 2]
 
-
             if right[-1] < total_pages - 1:
                 right_has_more = True
             if right[-1] < total_pages:
                 last = True
-
 
             if left[0] > 2:
                 left_has_more = True
@@ -163,7 +159,6 @@ def detail(request, pk):
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
-
     post.increase_views()
 
     post.body = markdown.markdown(post.body,
@@ -177,7 +172,6 @@ def detail(request, pk):
 
     comment_list = post.comment_set.all()
 
-
     context = {'post': post,
                'form': form,
                'comment_list': comment_list
@@ -185,25 +179,19 @@ def detail(request, pk):
     return render(request, 'blog/detail.html', context=context)
 
 
-
 class PostDetailView(DetailView):
-
     model = Post
     template_name = 'blog/detail.html'
     context_object_name = 'post'
 
     def get(self, request, *args, **kwargs):
-
         response = super(PostDetailView, self).get(request, *args, **kwargs)
 
-
         self.object.increase_views()
-
 
         return response
 
     def get_object(self, queryset=None):
-
         post = super(PostDetailView, self).get_object(queryset=None)
         md = markdown.Markdown(extensions=[
             'markdown.extensions.extra',
@@ -215,7 +203,6 @@ class PostDetailView(DetailView):
         return post
 
     def get_context_data(self, **kwargs):
-
         context = super(PostDetailView, self).get_context_data(**kwargs)
         form = CommentForm()
         comment_list = self.object.comment_set.all()
@@ -270,7 +257,8 @@ class TagView(ListView):
     def get_queryset(self):
         tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
         return super(TagView, self).get_queryset().filter(tags=tag)
-    
+
+
 def aboutUs(request):
     return render(request, 'blog/about.html')
 
@@ -278,17 +266,16 @@ def aboutUs(request):
 def contact(request):
     form_class = ContactForm
 
-
     if request.method == 'POST':
         form = form_class(data=request.POST)
 
         if form.is_valid():
             contact_name = request.POST.get(
                 'contact_name'
-            , '')
+                , '')
             contact_email = request.POST.get(
                 'contact_email'
-            , '')
+                , '')
             form_content = request.POST.get('content', '')
 
             # Add contact information in email
@@ -303,18 +290,18 @@ def contact(request):
             email = EmailMessage(
                 "New contact form submission",
                 content,
-                "Your website" +'',
+                "Your website" + '',
                 ['youremail@gmail.com'],
-                headers = {'Reply-To': contact_email }
+                headers={'Reply-To': contact_email}
             )
             email.send()
-            
-            messages.success(request, 'Your message has been sent to us!') 
-            
+
+            messages.success(request, 'Your message has been sent to us!')
+
             return redirect('blog:contact')
         else:
             messages.warning(request, 'Your message is not valid. Please try again.')
-            
+
     return render(request, 'blog/contact.html', {
         'form': form_class,
     })
@@ -331,3 +318,14 @@ def search(request):
     return render(request, 'blog/index.html', {'error_msg': error_msg,
                                                'post_list': post_list})
 """
+
+
+def logout_view(request):
+    from django.contrib.auth import logout
+    logout(request)
+    return redirect('index')
+
+
+def dajibaofans(request):
+    print(request.user.first_name)
+    return render(request, 'profile/profile.html')

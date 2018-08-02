@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.http import HttpResponse
 from users import views
 from blog.feeds import AllPostsRssFeed
+from blog import views as blog_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^chat/', include('chat.urls')),
-    url(r'', include('blog.urls')),
+    url(r'^profile/', blog_view.dajibaofans, name='dajibao'),
+    url(r'', include('blog.urls', namespace='blog')),
     url(r'', include('comments.urls')),
     url(r'^robots\.txt$', lambda r: HttpResponse('User-agent: *\nDisallow: /', content_type='text/plain')),
     url(r'^search/', include('haystack.urls')),
@@ -32,6 +34,7 @@ urlpatterns = [
     url(r'^users/', include('users.urls')),
     url(r'^users/', include('django.contrib.auth.urls')),
     url(r'^$', views.index, name='index'),
+    url(r'^logout/', blog_view.logout_view, name='logout'),
 
     url(r'^news/', include('news.urls')),
 ]

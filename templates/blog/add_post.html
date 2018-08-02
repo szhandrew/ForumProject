@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block main %}
+<form action="{% url 'blog:add_post' %}" method="post">
+    {% csrf_token %}
+    <div style="margin:40px 0 25px">
+        <label for="title-id">{% trans 'Title' %}</label>
+        <br>
+        <input style="border: 1px solid black" id='title-id' type="text" name="title">
+    </div>
+    <div style="margin-bottom: 20px">
+        <label for="content-id">Content</label>
+        <br>
+        <textarea style="border: 1px solid black" id='content-id' type="text" name="content"></textarea>
+    </div>
+    <button>Submit</button>
+</form>
+{% endblock main %}
