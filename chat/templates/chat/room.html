@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'chat/css/room_style.css' %}" />
 </head>
 <body>
+{% if user.is_authenticated %}
 	<h1>Chat Room</h1>
 	<textarea readonly id="chat-log" cols="101" rows="20"></textarea><br/>
 	<input id="chat-message-input" type="text" size="100"/><br/>
@@ -38,7 +39,7 @@
 
 	document.querySelector('#chat-message-submit').onclick = function(e) {
 		var messageInputDom = document.querySelector('#chat-message-input');
-		var message = messageInputDom.value;
+		var message = '{{request.user.username}}' + ' : ' + messageInputDom.value;
 		chatSocket.send(JSON.stringify({
 			'message': message
 		}));
@@ -46,4 +47,11 @@
 		messageInputDom.value = '';
 	};
 </script>
+{% else %}
+	<p>You need to login first
+	<button class="btn btn-default"><a href="{% url 'login' %}?next={{ request.path }}">Login</a></button>
+	Or
+	<button class="btn btn-default"><a href="{% url 'users:register' %}?next={{ request.path }}">Signup</a></button>
+	</p>
+{% endif %}
 </html>
