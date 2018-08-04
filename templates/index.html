@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="flex-center">
-    <div class="container">
+    <div class="container" style="text-align:center">
         <div>
             {% if user.is_authenticated %}
 
@@ -23,7 +23,10 @@
             <button class="btn btn-default"><a href="http://localhost:8000/home">Explore</a>
             </button>
 
-            {% else %}
+            {% else %}         
+                <img style="height:200px; margin-top:50px" src="{% static 'blog/images/logo.png' %}">
+                <h1>Welcome to CS TecLog!</h1>
+
                 <p>You need to login first
                     <button class="btn btn-default"><a href="{% url 'login' %}?next={{ request.path }}">Login</a>
                     </button>
