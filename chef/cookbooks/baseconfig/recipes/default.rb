@@ -1,22 +1,14 @@
 # Make sure the Apt package lists are up to date, so we're downloading versions that exist.
 cookbook_file "apt-sources.list" do
-<<<<<<< HEAD
 	path "/etc/apt/sources.list"
 end
 execute 'apt_update' do
 	command 'apt-get update'
-=======
-  path "/etc/apt/sources.list"
-end
-execute 'apt_update' do
-  command 'apt-get update'
->>>>>>> template/master
 end
 
 # Base configuration recipe in Chef.
 package "wget"
 package "ntp"
-<<<<<<< HEAD
 package "curl"
 package "python3-pip"
 package "python3-dev"
@@ -81,11 +73,3 @@ end
 # 	cwd '/home/vagrant/project/'
 # 	command 'python3 manage.py runserver 0:8000 &'
 # end
-=======
-cookbook_file "ntp.conf" do
-  path "/etc/ntp.conf"
-end
-execute 'ntp_restart' do
-  command 'service ntp restart'
-end
->>>>>>> template/master
