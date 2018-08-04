@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="shortcut icon" href="{%  static 'blog/images/logo.png' %}">
     <title>CS TecLog</title>
 
     <!-- meta -->
@@ -37,7 +38,12 @@
         <div class="row">
             <div class="col-md-3 col-sm-5 col-xs-8">
                 <div class="logo">
-                    <h1><a href="{% url 'blog:index' %}"><b>CS TecLog</a></h1>
+                    <h1>
+                    <a href="{% url 'blog:index' %}">
+                        <img style="height:50px" src="{% static 'blog/images/logo.png' %}">&nbsp
+                        <b>CS TecLog
+                    </a>
+                    </h1>
                 </div>
             </div><!-- col-md-4 -->
             <div class="col-md-9 col-sm-7 col-xs-4">
