@@ -36,6 +36,9 @@ def index(request):
     post_list = Post.objects.all()
     return render(request, 'blog/index.html', context={'post_list': post_list})
 
+def home(request):
+        return render(request, 'blog/home.html')
+
 def my_posts(request):
     post_list = Post.objects.filter(author=request.user)
     return render(request, 'blog/index.html', context={'post_list': post_list})

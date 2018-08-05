@@ -4,7 +4,7 @@ from . import views
 
 app_name = 'blog'
 urlpatterns = [
-    # url(r'^home', views.index, name='index'),
+     url(r'^home', views.home, name='home'),
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^my-posts', views.my_posts, name='my_posts'),
     url(r'^add-post', views.add_post, name='add_post'),
