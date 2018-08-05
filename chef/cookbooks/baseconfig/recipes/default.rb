@@ -24,10 +24,6 @@ execute 'ntp_restart' do
 	command 'service ntp restart'
 end
 
-execute 'install_django' do
-	command 'pip3 install Django==1.11'
-end
-
 execute 'install_dependencies' do
 	command 'pip3 install Markdown==2.6.8 \
 	Pygments==2.2.0 \
@@ -36,6 +32,10 @@ execute 'install_dependencies' do
 	jieba==0.38 \
 	Whoosh==2.7.4 \
 	beautifulsoup4'
+end
+
+execute 'install_django' do
+	command 'pip3 install Django==1.11'
 end
 
 execute 'install_channels' do
