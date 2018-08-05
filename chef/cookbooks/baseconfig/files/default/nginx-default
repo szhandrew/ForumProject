@@ -18,9 +18,19 @@
 
 # Default server configuration
 #
+
+upstream django {
+	server unix:///tmp/blogproject.sock;
+}
+
+
+
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
+
+	##listen 8000 default_server;
+	##listen [::]:8000 default_server;
 
 	# SSL configuration
 	#
@@ -43,13 +53,21 @@ server {
 	# Add index.php to the list if you are using PHP
 	index index.html index.htm index.nginx-debian.html;
 
-	server_name _;
+	####server_name _;
+	server_name localhost;
 
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
 		try_files $uri $uri/ =404;
+		uwsgi_pass django;
+		include		/etc/nginx/uwsgi_params;
+		proxy_pass  http://localhost:8000;
 	}
+	location /static {
+		alias /home/vagrant/static;
+	}
+
 
 	# pass PHP scripts to FastCGI server
 	#

@@ -84,6 +84,14 @@ end
 
 package "docker-ce"
 
+
+execute 'django_db_makemigrations' do
+	user 'vagrant'
+	cwd '/home/vagrant/project/'
+	command 'python3 manage.py makemigrations'
+end
+
+
 execute 'django_db_migrate' do
 	user 'vagrant'
 	cwd '/home/vagrant/project/'
@@ -93,6 +101,15 @@ end
 # execute 'start_redis_server' do
 # 	command 'docker run -p 6379:6379 -d redis:2.8'
 # end
+
+
+execute 'fixture' do
+	user 'vagrant'
+	cwd '/home/vagrant/project/'
+	command 'python3 manage.py loaddata initial_data.json'
+end
+
+
 
 # execute 'start_django_server' do
 # 	cwd '/home/vagrant/project/'
