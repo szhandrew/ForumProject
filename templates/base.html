@@ -113,8 +113,19 @@ font-weight: 600;
                             <li class="cl-effect-11"><a href="/chat/" data-hover="Chat" target="_blank">Chat</a></li>
                             <li class="cl-effect-11"><a href="{% url 'blog:about' %}" data-hover="About Us">About</a></li>
                             <li class="cl-effect-11"><a href="{% url 'blog:contact' %}" data-hover="Contact Us">Contact</a></li>
+                              {% if user.is_authenticated %}
                             <li class="cl-effect-11"><a href="/profile/" data-hover="{{request.user.username}}" target="_blank">{{request.user.username}}</a></li>
+                            {% else %}
 
+                                    <button class="btn btn-default"><a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+                                    </button>
+                                    Or
+                                    <button class="btn btn-default"><a href="{% url 'users:register' %}?next={{ request.path }}">Signup</a>
+                                    </button>
+
+
+                  
+                            {% endif %}
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </nav>
