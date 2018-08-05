@@ -2,7 +2,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 
 class ChatConsumer(AsyncWebsocketConsumer):
-	# A channel is where messages are to
+	# A channel is where messages are sent to
 	# Anyone with the channel name can send messages to the channel
 	# A group is a collection of related channels
 	# Anyone with the group name add/remove a channel and send messages to the channels in the group
@@ -33,12 +33,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
 			self.channel_name
 		)
 
-	# Receive message from the WebSocket
+	# User sends a message which is sent over WebSocket (WebSocket receives a message)
 	async def receive(self, text_data):
 		text_data_json = json.loads(text_data)
 		message = text_data_json['message']
 
-		# Wait for user to send a message to the group
+		# Send a message to the group
 		# All the channels in the group will receive it
 		await self.channel_layer.group_send(
 			self.room_group_name,
@@ -52,7 +52,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 	async def chat_message(self, event):
 		message = event['message']
 
-		# Send message to the WebSocket
+		# Send message over WebSocket which will be added to the chat log
 		await self.send(text_data=json.dumps({
 			'message': message
 		}))

@@ -1,8 +1,35 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <div style="margin: 20px">
-    <p>First Name: {{request.user.first_name}}</p>
-    <p>Last Name: {{request.user.last_name}}</p>
+<div class="flex-center">
+    <div class="container1">
+        <div>
+
+
+
+            <div style="margin: 20px">
+            <h1>Account Information</h1>
+            <p>First Name: {{request.user.username}}</p>
+            <p>Last Name: {{request.user.email}}</p>
+            </div>
+
+            <button class="btn btn-default"><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+            </button>
+            <button class="btn btn-default"><a href="{% url 'password_change' %}?next={{ request.path }}">Change password</a>
+            </button>
+
+            <button class="btn btn-default"><a href="{% url 'blog:my_posts' %}">View my Posts</a>
+            </button>
+
+            <button class="btn btn-default"><a href="{% url 'blog:add_post' %}">Add New Post</a>
+            </button>
+
+
+
+
+
+
+        </div>
     </div>
-{% endblock main %}
+</div>
+  {% endblock main %}

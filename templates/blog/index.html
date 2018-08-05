@@ -4,11 +4,8 @@
     {% if error_msg %}
         <p>{{ error_msg }}</p>
     {% endif %}
-    <div style="margin-bottom: 20px">
-        <a style="border:1px solid black; margin: 2px; padding: 2px" href="{% url 'blog:my_posts' %}">My Posts</a>
-        <a style="border:1px solid black; margin: 2px; padding: 2px" href="{% url 'blog:index' %}">All Posts</a>
-        <a style="border:1px solid black; margin: 2px; padding: 2px" href="{% url 'blog:add_post' %}">Add New Post</a>
-    </div>
+
+
 
     {% for post in post_list %}
         <article class="post post-{{ post.pk }}">
@@ -34,6 +31,8 @@
                 </div>
             </div>
         </article>
+
+        
     {% empty %}
         <div class="no-post">No article found.！</div>
     {% endfor %}
