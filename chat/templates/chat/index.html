@@ -1,4 +1,4 @@
-{% load staticfiles %}
+<!-- {% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +11,7 @@
 	{% if user.is_authenticated %}
 		<h1>Welcome to the chat lobby {{request.user.username}}!</h1>
 		<p>Which chat room would you like to enter?</p>
-		<input id="room-name-input" type="text" size="50"/><br/>
+		<input id="room-name-input" type="text" size="50"/>
 		<input id="room-name-submit" type="button" value="Enter"/>
 
 		<script>
@@ -34,5 +34,77 @@
 		<button class="btn btn-default"><a href="{% url 'users:register' %}?next={{ request.path }}">Signup</a></button>
 		</p>
 	{% endif %}
+</body>
+</html>
+
+
+ -->
+
+
+
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="{%  static 'blog/images/logo.png' %}">
+    <title>CS TecLog Chat Rooms</title>
+    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
+    <style>
+        .errorlist {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+		{% if user.is_authenticated %}
+<div class="flex-center">
+    <div class="container">
+        <div class="flex-center">
+            <div class="unit-1-2 unit-1-on-mobile">
+                <h1>
+                    <img style="height:50px" src="{% static 'blog/images/logo.png' %}">&nbsp
+                    CS TecLog
+                    <!--<a href="{% url 'index' %}">CS TecLog</a>-->
+                </h1>
+                <h3>Welcome to the chat lobby {{request.user.username}}!</h3>
+								<p>Which chat room would you like to enter?</p>
+                <form >
+									<input id="room-name-input" type="text" size="50"/>
+									<input id="room-name-submit" type="button" value="Enter"/>
+
+                </form>
+
+
+								<script>
+									document.querySelector('#room-name-input').focus();
+									document.querySelector('#room-name-input').onkeyup = function(keypress) {
+										if (keypress.keyCode === 13) {	// if the user presses enter or return
+											document.querySelector('#room-name-submit').click();
+										}
+									};
+
+									document.querySelector('#room-name-submit').onclick = function(keypress) {
+										var roomName = document.querySelector('#room-name-input').value;
+										window.location.pathname = '/chat/' + roomName + '/';
+									};
+								</script>
+							{% else %}
+							  <div class="container">
+								<p>You need to login first
+								<button class="btn btn-default"><a href="{% url 'login' %}?next={{ request.path }}">Login</a></button>
+								Or
+								<button class="btn btn-default"><a href="{% url 'users:register' %}?next={{ request.path }}">Signup</a></button>
+								</p>
+							</div>
+							{% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

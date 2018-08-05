@@ -119,15 +119,7 @@ width:300px;
                     </li>
                     </ul>
 
-                    <!-- <div id="header-search-box">
 
-                        <div id="search-form" class="search-form">
-                            <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
-                                <input type="search" name="q" placeholder="search" required>
-                                <button type="submit"><span class="ion-ios-search-strong"></span></button>
-                            </form>
-                        </div>
-                    </div> -->
                 </div>
 
             </div>
@@ -190,29 +182,9 @@ width:300px;
                       </ul>
                   </div>
 
-                  <div class="widget widget-tag-cloud">
-                      <h3 class="widget-title">cloud</h3>
-                      {% get_tags as tag_list %}
-                      <ul>
-                          {% for tag in tag_list %}
-                              <li>
-                                  <a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a>
-                              </li>
-                          {% empty %}
-                              No cloud yet!
-                          {% endfor %}
-                      </ul>
-                  </div>
-
-                  <div class="rss">
+                  
 
 
-                    <a href="{% url 'blog:about' %}" data-hover="About Us"><span class="ion-social-rss-outline">About Us</span></a>
-                    <br>
-                    <a href="{% url 'blog:contact' %}" data-hover="Contact Us"><span class="ion-social-rss-outline">Contact Us</span></a>
-
-
-                  </div>
               </aside>
           </div>
       </div>
