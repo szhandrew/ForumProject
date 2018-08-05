@@ -17,14 +17,29 @@
 <link href="{% static 'blog/css/flexslider.css' %}" rel="stylesheet" />
 <link href="{% static 'blog/js/owl-carousel/owl.carousel.css' %}" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'blog/et-line-font/style.css' %}" />
-<!--[if lte IE 7]><script src="lte-ie7.js"></script><![endif]-->
 <link href="{% static 'blog/css/style.css' %}" rel="stylesheet" />
 
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
+
+    <style>
+ .bar7 form {
+ 	height:42px;
+  margin-top: 10px;
+ }
+ .bar7 input {
+ 	width:250px;
+ 	/* border-radius:42px; */
+ 	border:2px solid #324B4E;
+ 	background:#F9F0DA;
+ 	transition:.3s linear;
+ 	float:right;
+ }
+ .bar7 input:focus {
+ 	width:300px;
+ }
+
+
+    </style>
 </head>
 <body>
 <div id="wrapper" class="home-page">
@@ -32,14 +47,13 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-         <!-- <a class="navbar-brand pull-left" href="home.html"><img src="{%  static 'blog/images/logo.png' %}" alt="logo"/></a> -->
-         <h1>
+           <h1>
          <a  style= "color: black" href="{% url 'blog:home' %}">
              <img style="height:50px" src="{% static 'blog/images/logo.png' %}">&nbsp
              CS TecLog
          </a>
          </h1>
-        <p class="pull-right"><i class="fa fa-phone"></i> Tel No. (+001) 123-456-789</p>
+
       </div>
     </div>
   </div>
@@ -58,12 +72,7 @@
                 </div>
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="home.html">Home</a></li>
-                        <!-- <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="contact.html">Contact</a></li> -->
-
-
+                        <li ><a href="{% url 'blog:home' %}">Home</a></li>
                         <li ><a href="{% url 'blog:index' %}" >Articles</a></li>
                         <li ><a href="/news/nws.html" >Latest News</a></li>
                         <li ><a href="/chat/"  target="_blank">Discuss</a></li>
@@ -77,7 +86,15 @@
                         <li ><a href="{% url 'login' %}?next={{ request.path }}">Login</a>  </li>
                         {% endif %}
 
-                        <li ><a id="search-menu" href="#"><span >search</span></a></li>
+                        <!-- <li ><a id="search-menu" href="#"><span >search</span></a></li> -->
+
+                          <li class="search bar7" >
+                                    <form role="search" method="get"  action="{% url 'haystack_search' %}">
+                                        <input type="search" name="q" placeholder="search articles" required>
+                                          <!-- <button type="submit"></button> -->
+                                    </form>
+
+                      </li>
                     </ul>
 
                     <!-- <div id="header-search-box">
@@ -148,17 +165,17 @@
 		<div class="skill-home"> <div class="skill-home-solid clearfix">
 		<div class="col-md-4 text-center">
 		<div class="box-content">
-		<span class="icons c1"><i class="icon-layers"></i></span> <div class="box-area">
+		<span class="icons c1"><i class="icon-shield"></i></span> <div class="box-area">
 		<h3>IT community</h3> <p>Create a website that focuses on sharing and solving technical IT questions</p></div></div>
 		</div>
 		<div class="col-md-4 text-center">
 		<div class="box-content focus">
-		<span class="icons c2"><i class="icon-gears"></i></span> <div class="box-area">
+		<span class="icons c2"><i class="icon-layers"></i></span> <div class="box-area">
 		<h3>Technology News </h3> <p>Provide an updated stream of tech news and articles</p></div></div>
 		</div>
 		<div class="col-md-4 text-center">
 		<div class="box-content">
-		<span class="icons c3"><i class="icon-shield"></i></span> <div class="box-area">
+		<span class="icons c3"><i class="icon-chat"></i></span> <div class="box-area">
 		<h3>Online Discussion</h3> <p>User can communicate with other users in the system by small chat window.
 </p></div>
 		</div> </div>
@@ -213,15 +230,14 @@
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="widget">
-					<h5 class="widgetheading"> Contact Us</h5>
-
+				  <a href="{% url 'blog:about' %}" data-hover="About Us"><span class="ion-social-rss-outline">About Us</span></a>
 				</div>
 			</div>
 			<div class="col-lg-3">
 				<div class="widget">
-					<h5 class="widgetheading">About Us</h5>
+				  <a href="{% url 'blog:contact' %}" data-hover="Contact Us"><span class="ion-social-rss-outline">Contact Us</span></a>
 
-				</div>
+	</div>
 			</div>
       <ul class="social-network">
         <li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
