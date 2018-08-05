@@ -13,19 +13,15 @@ package "curl"
 package "python3-pip"
 package "python3-dev"
 package "nodejs"
-# package "postgresql-server-dev-all"
-# package "libpython-dev"
-# package "libpq-dev"
+package "postgresql-server-dev-all"
+package "libpython-dev"
+package "libpq-dev"
 
 cookbook_file "ntp.conf" do
 	path "/etc/ntp.conf"
 end
 execute 'ntp_restart' do
 	command 'service ntp restart'
-end
-
-execute 'install_django' do
-	command 'pip3 install Django==1.11'
 end
 
 execute 'install_dependencies' do
@@ -36,6 +32,10 @@ execute 'install_dependencies' do
 	jieba==0.38 \
 	Whoosh==2.7.4 \
 	beautifulsoup4'
+end
+
+execute 'install_django' do
+	command 'pip3 install Django==1.11'
 end
 
 execute 'install_channels' do
@@ -59,11 +59,52 @@ end
 
 package "docker-ce"
 
+execute 'install_deploy' do
+	command 'pip3 install gunicorn psycopg2-binary'
+end
+
+cookbook_file "/etc/systemd/system/gunicorn.socket" do
+	source 'gunicorn.socket'
+	mode '777'
+	action :create
+end
+
+cookbook_file "/etc/systemd/system/gunicorn.service" do
+	source 'gunicorn.service'
+	mode '777'
+	action :create
+end
+
+#nginx
+package "nginx"
+cookbook_file "nginx-default" do
+	path "/etc/nginx/sites-available/default"
+end
+service "nginx" do
+	action :restart
+end
+
+#Postgres
+package "postgresql"
+package "postgresql-contrib"
+execute 'postgres_user' do
+	command 'echo "CREATE DATABASE mydb; CREATE USER vagrant; GRANT ALL PRIVILEGES ON DATABASE mydb TO vagrant;" | sudo -u postgres psql'
+end
+
 execute 'django_db_migrate' do
 	user 'vagrant'
 	cwd '/home/vagrant/project/'
 	command 'python3 manage.py migrate'
 end
+
+service "gunicorn" do
+	action :restart
+end
+
+service "nginx" do
+	action :restart
+end
+
 
 execute 'start_redis_server' do
 	command 'docker run -p 6379:6379 -d redis:2.8'

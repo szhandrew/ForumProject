@@ -1,0 +1,12 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=vagrant
+WorkingDirectory=/home/vagrant/project/
+ExecStart=/usr/local/bin/gunicorn --workers 3 --bind unix:/run/gunicorn.sock blogproject.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

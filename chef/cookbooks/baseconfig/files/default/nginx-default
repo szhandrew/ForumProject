@@ -1,0 +1,20 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	root /home/vagrant/project/;
+
+	# Add index.php to the list if you are using PHP
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name localhost;
+
+	location /static/ {
+        root /home/vagrant/project/blog/static;
+    }
+
+	location / {
+		include proxy_params;
+        proxy_pass http://unix:/run/gunicorn.sock;
+	}
+}
