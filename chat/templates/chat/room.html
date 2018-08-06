@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8"/>
-	<title>Chat Room</title>
+	<title>#{{ room_name }}</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'chat/css/room_style.css' %}" />
 	<link href="{% static 'blog/css/bootstrap.min.css' %}" rel="stylesheet" />
 
@@ -76,7 +76,7 @@
 	</header>
 
 	<div class="chat_room">
-		<h1>Chat Room</h1>
+		<h1>#{{ room_name }}</h1>
 		<textarea id="chat-log" cols="101" rows="20" readonly placeholder=
 		"Hello! Welcome to the chat room!
 If you have a question, feel free to ask away, and those who can help will, but please be patient."></textarea><br/>
