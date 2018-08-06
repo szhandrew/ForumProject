@@ -17,7 +17,7 @@ p, #room-name-input, #room-name-submit {
 
 #room_name_alert {
 	padding: 20px;
-	background-color: #f44336; /* Red */
+	background-color: #1976D2; /* Blue */
 	color: white;
 	margin-bottom: 15px;
 }
