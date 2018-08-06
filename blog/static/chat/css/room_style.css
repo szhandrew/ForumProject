@@ -1,8 +1,45 @@
-h1 {
+/*h1 {
 	font-family: 'Lato', sans-serif;
 	font-weight: 400;
+}*/
+
+.chat_room {
+	text-align: center;
+}
+
+.chat_room h1{
+	text-align: center;
 }
 
 #chat-message-submit, textarea#chat-log {
 	font-family: 'Lato', sans-serif;
+}
+
+.login {
+	text-align: center;
+}
+
+.login a {
+	color: white;
+}
+
+.bar7 form {
+	height: 42px;
+	margin-top: 10px;
+}
+
+.bar7 input {
+	width: 250px;
+	border: 2px solid #324B4E;
+	background: #F9F0DA;
+	transition: .3s linear;
+	float: right;
+}
+
+.bar7 input:focus {
+	width:300px;
+}
+
+span.highlighted {
+	color: red;
 }
