@@ -34,6 +34,7 @@ package "nginx"
 cookbook_file "nginx-default" do
 	path "/etc/nginx/sites-available/default"
 end
+
 service "nginx" do
 	action :restart
 end
@@ -49,10 +50,6 @@ end
 
 
 #### -------------project dependencies---------------
-execute 'install_django' do
-	command 'pip3 install Django==1.11'
-end
-
 execute 'install_dependencies' do
 	command 'pip3 install Markdown==2.6.8 \
 	Pygments==2.2.0 \
@@ -63,12 +60,20 @@ execute 'install_dependencies' do
 	beautifulsoup4'
 end
 
+execute 'install_django' do
+	command 'pip3 install Django==1.11'
+end
+
 execute 'install_channels' do
 	command 'pip3 install channels'
 end
 
 execute 'install_redis' do
 	command 'pip3 install channels_redis'
+end
+
+execute 'install_daphne' do
+	command 'pip3 install daphne'
 end
 
 execute 'add_docker_gpg_key' do
@@ -98,10 +103,9 @@ execute 'django_db_migrate' do
 	command 'python3 manage.py migrate'
 end
 
-execute 'start_redis_server' do
+execute 'bind_redis_server' do
 	command 'docker run -p 6379:6379 -d redis:2.8'
 end
-
 
 execute 'fixture' do
 	user 'vagrant'
@@ -111,7 +115,7 @@ end
 
 
 cookbook_file "rc.local" do
-  path "/home/vagrant/project/chef/cookbooks/baseconfig/files/default/rc.local"
+	path "/home/vagrant/project/chef/cookbooks/baseconfig/files/default/rc.local"
 end
 execute 'startup' do
 	command '/usr/local/bin/uwsgi --ini /home/vagrant/project/uwsgi.ini --daemonize /var/log/blogproject.log'
@@ -123,7 +127,15 @@ execute "stat_collected" do
 	command 'python3 manage.py collectstatic --noinput'
 end
 
+service "nginx" do
+	action :restart
+end
 
+execute 'bind_daphne_server' do
+	user 'vagrant'
+	cwd '/home/vagrant/project/'
+	command 'daphne -b 0.0.0.0 -p 8001 blogproject.asgi:application &'
+end
 
 # execute 'start_django_server' do
 # 	cwd '/home/vagrant/project/'

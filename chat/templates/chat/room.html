@@ -99,7 +99,7 @@ If you have a question, feel free to ask away, and those who can help will, but 
 	}
 
 	chatSocket.onmessage = function(e) {
-		console.log('Received' + ': ' + e.data);
+		// console.log('Received' + ': ' + e.data);
 		var data = JSON.parse(e.data);
 		var message = data['message'];
 		document.querySelector('#chat-log').value += (message + '\n');
