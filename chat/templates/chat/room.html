@@ -77,7 +77,9 @@
 
 	<div class="chat_room">
 		<h1>Chat Room</h1>
-		<textarea readonly id="chat-log" cols="101" rows="20"></textarea><br/>
+		<textarea id="chat-log" cols="101" rows="20" readonly placeholder=
+		"Hello! Welcome to the chat room!
+If you have a question, feel free to ask away, and those who can help will, but please be patient."></textarea><br/>
 		<input id="chat-message-input" type="text" size="100"/><br/>
 		<input id="chat-message-submit" type="button" value="Send"/>
 	</div>
@@ -90,10 +92,10 @@
 		'/ws/chat/' + roomName + '/');
 
 	chatSocket.onopen = function(e) {
-		document.querySelector('#chat-log').value += ('Hello!  Welcome to the chat room!'
-			+ '\n'
-			+ 'If you have a question, feel free to ask away, and those who can help will, but please be patient.'
-			+ '\n\n');
+		var message = '{{request.user.username}}' + ' has joined the chat.';
+		chatSocket.send(JSON.stringify({
+			'message': message
+		}));
 	}
 
 	chatSocket.onmessage = function(e) {
