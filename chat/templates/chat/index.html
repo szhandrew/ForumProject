@@ -102,12 +102,12 @@
 
 			document.querySelector('#room-name-submit').onclick = function(keypress) {
 				var roomName = (document.querySelector('#room-name-input').value).replace(/\s+/g, '');;
-				var regEx = /[A-Za-z0-9_]{1,}/;
-				if (!roomName.match(regEx)) {
+				var regEx = new RegExp(/^[A-Za-z0-9_]+$/);
+				if (regEx.test(roomName)) {
+					window.location.pathname = '/chat/' + roomName + '/';
+				} else {
 					document.getElementById("room_name_alert").style.display = 'block';
 					alert("Error: Invalid room name!");
-				} else {
-					window.location.pathname = '/chat/' + roomName + '/';
 				}
 			};
 		</script>
