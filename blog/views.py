@@ -48,15 +48,23 @@ def add_post(request):
         return render(request, 'blog/add_post.html')
 
     title = request.POST.get('title')
+    category_name = request.POST.get('category')
     content = request.POST.get('content')
+
+    if Category.objects.filter(name=category_name).exists():
+        category = Category.objects.filter(name=category_name)[0]
+    else:
+        category = Category.objects.create(name=category_name)
+        category.save()
+
     post = Post.objects.create(title=title,
+                               category=category,
                                body=content,
                                author=request.user,
                                created_time=datetime.datetime.now(),
                                modified_time=datetime.datetime.now())
     post.save()
     return redirect('blog:index')
-
 
 class IndexView(ListView):
     model = Post

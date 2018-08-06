@@ -47,7 +47,7 @@ class Post(models.Model):
 
     views = models.PositiveIntegerField(default=0)
 
-    category = models.ForeignKey(Category, default=2, blank=True, null=True, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, default=2, on_delete=models.PROTECT)
     tags = models.ManyToManyField(Tag, blank=True)
 
     author = models.ForeignKey(User, on_delete=models.PROTECT)
