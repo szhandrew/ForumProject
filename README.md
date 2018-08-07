@@ -9,7 +9,7 @@
     - Create and manage blog posts.
     - Assign a cateogory to blog posts.
     - Join a chat room.
-- Functions that require login
+- Functions that not achieved 
     - Multilingual support.
 
 
