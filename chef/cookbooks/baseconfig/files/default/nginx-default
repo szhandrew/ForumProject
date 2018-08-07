@@ -24,7 +24,7 @@ server {
 	}
 	
 	location /static{
-		root /home/vagrant/project/blog;
+		root /home/vagrant/project/;
 	}
 
 	location /ws/ {
