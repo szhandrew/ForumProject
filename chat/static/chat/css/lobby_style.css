@@ -1,0 +1,67 @@
+/*h1 {
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+}
+
+p, #room-name-input, #room-name-submit {
+	font-family: 'Lato', sans-serif;
+}*/
+
+.chat_lobby {
+	text-align: center;
+}
+
+.chat_lobby h1, p{
+	text-align: center;
+}
+
+#room_name_alert {
+	padding: 20px;
+	background-color: #1976D2; /* Blue */
+	color: white;
+	margin-bottom: 15px;
+}
+
+#closebtn {
+	margin-left: 15px;
+	color: white;
+	font-weight: bold;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+#closebtn:hover {
+	color: black;
+}
+
+.login {
+	text-align: center;
+}
+
+.login a {
+	color: white;
+}
+
+.bar7 form {
+	height: 42px;
+	margin-top: 10px;
+}
+
+.bar7 input {
+	width: 250px;
+	border: 2px solid #324B4E;
+	background: #F9F0DA;
+	transition: .3s linear;
+	float: right;
+}
+
+.bar7 input:focus {
+	width:300px;
+}
+
+span.highlighted {
+	color: red;
+}
