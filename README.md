@@ -1,50 +1,31 @@
-CMPT 470 Project Group 12 CS Teclog
-------------------------
+# CMPT 470 Project 
+#### Group 12 CS Teclog
+---
+## Features
+- User is able to sign up for an account and login. Able to reset password.
+- Functions that do not require login
+    - View homepage and posts, contact us page.
+    - Search for posted articles, leave comments, read tech news posted by the web crawler.
+- Functions that require login
+    - Create and manage blog posts.
+    - Assign a cateogory to blog posts.
+    - Join a chat room.
 
--------------------------
-What is working 
--------------------------
->>>>>Login System
-1. User is able to register an account then login with it
-2. User is able to change account password, reset password if he forget it
-
->>>>>Functions do not require login
-3. User is able to search posted articles, leave comments on articles and read the technology news without login to the system
-4. User is able to explore the home page, contact us and about us to know about the website
-5. User is able to view the original website of the news which crawler puts into databse
-
->>>>>Function require login
-6. User is able to login then post new questions 
-7. User is able to manage his/her own posts
-8. User need to login to join in chat room
-9. User is able to see popular chat room names 
-10. User is able to join in any intersted chat room 
-11. User is able to talk with other users
- 
- 
-
--------------------------
-What is not working 
--------------------------
-1. We did not achive the multiple language support 
-
-
-
--------------------------
-User name and password
--------------------------
-You can create you own username and password
-
-OR
-
-login to system by using username: test1 with password:test123456
-login to admin page by using username: admin with password:admin123456
-
-
-
-Vagrant instructions
--------------------------
-
-vagrant up
-
+### To be implmented in the future
+- Multilingual support.
+---
+## Installation and deployment
+```sh
+$ vagrant up
+```
 http://localhost:8080
+http://localhost:8080/admin
+---
+## User accounts
+User
+>Username: test1
+>Password: test123456
+
+Admin
+>Username: admin
+>Password: admin123456
