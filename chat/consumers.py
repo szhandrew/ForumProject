@@ -1,3 +1,7 @@
+# The code for the chat consumer that is responsible for managing WebSocket connections and sending messages
+# over was added when following the Django Channels tutorial linked below
+# http://channels.readthedocs.io/en/latest/tutorial/part_3.html
+
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 
