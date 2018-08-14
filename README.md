@@ -33,3 +33,14 @@ Admin
 >Username: admin
 
 >Password: admin123456
+
+## References
+The following files use the base chat code from the Django Channels tutorial linked below
+
+http://channels.readthedocs.io/en/latest/tutorial/index.html
+
+>/prj/chat/consumers.py (Part 3)
+
+>/prj/chat/templates/chat/index.html (Part 1)
+
+>/prj/chat/templates/chat/room.html (Part 2)
