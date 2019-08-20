@@ -1,4 +1,4 @@
-# CMPT 470 Project Group 12 CS Teclog
+# CS TechLog 
 
 ## Features
 - User is able to sign up for an account and login. Able to reset password.
